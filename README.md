@@ -1,6 +1,8 @@
 # Smash Verwaltung
 Dokumentiere deine Smashes und halte fest wo du schon alles gesmasht hast! 
 
+![](docs/smash.jpg)
+
 ## Ausgangslage
 
 ...ist ein kleiner Prototyp, den ihr mit egal welcher Technologie erstellen sollt:
@@ -9,13 +11,13 @@ Dokumentiere deine Smashes und halte fest wo du schon alles gesmasht hast!
 - Eine Datenbanktabelle Adresse mit den Spalten Strasse, Nummer, gültig ab, gültig bis (interne Daten, mittel)
 - Eine Datenbanktabelle Ortschaft mit den Spalten PLZ und Ort (interne Daten, einfach)
 - Die Beziehungen sind wie folgt definiert: Eine Person kann mehrere Adressen haben, nur eine ist jeweils gültig, eine Adresse hat genau eine Ortschaft
-- Es muss in einem grafischen Benutzerinterface (GUI) möglich sein
--- neue Personen zu erfassen
--- bestehende Personen zu löschen
--- bestehende Personen zu mutieren
--- einer Person eine neue Adresse hinzuzufügen
--- Ortschaften in einem Ortschaftsverzeichnis zu pflegen (neu, bearbeiten, löschen)
--- Eine Liste aller Personen mit allen Adressen am Bildschirm auszugeben
+- Es muss in einem grafischen Benutzerinterface (GUI) möglich sein: 
+    - neue Personen zu erfassen
+    - bestehende Personen zu löschen
+    - bestehende Personen zu mutieren
+    - einer Person eine neue Adresse hinzuzufügen
+    - Ortschaften in einem Ortschaftsverzeichnis zu pflegen (neu, bearbeiten, löschen)
+    - Eine Liste aller Personen mit allen Adressen am Bildschirm auszugeben
 
 ## Aufgabe
 
