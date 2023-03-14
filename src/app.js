@@ -3,6 +3,8 @@ class State {
         // Tries to load the sate from the local storage
         // If this fails it loads an empty array instead
         this.load();
+        // Load ortschaften that should exist
+        this.addExistentOrtschaften();
     }
 
     // Finds an ortschaft with the PK PLZ
@@ -36,10 +38,25 @@ class State {
     findPerson(name, vorname) {
         this.personen.forEach((person) => {
             if (person.name == name && person.vorname == vorname) {
-                return person;
+                return person 
             }
         });
         return null;
+    }
+
+    // Returns the index of the person
+    indexOfPerson(name, vorname) {
+        let person = this.findPerson(name, vorname);
+        if (person != null) {
+            return this.personen.indexOf(person);
+        }
+    }
+
+    // Deletes a person
+    deletePerson(name, vorname) {
+        if (this.indexOfPerson(name, vorname) != null) {
+            delete this.personen[this.indexOfPerson(name, vorname)];
+        }
     }
 
     // Checks if an person exists in the list, otherwise return false
@@ -52,8 +69,13 @@ class State {
 
     // Adds an person if it doesnt already exist
     addPerson(name, vorname, geburtsdatum, heimatort) {
-        if (!this.existsPerson(name, vorname)) {
-            this.personen.push(new Person(name, vorname, geburtsdatum, heimatort));
+        this.addPerson(new Person(name, vorname, geburtsdatum, heimatort));
+    }
+
+    // Adds an person if it doesnt already exist
+    addPerson(person) {
+        if (!this.existsPerson(person.name, person.vorname)) {
+            this.personen.push(person);
             this.save();
         }
     }
@@ -70,17 +92,25 @@ class State {
 
     // Add adress to personen
     addAdresseToPerson(name, vorname, addresse, isHauptAddresse = false) {
-        person = this.findPerson(name, vorname);
+        let person = this.findPerson(name, vorname);
         if (person != null) {
-            person.addAdresse(addresse, isHauptAddresse)
+            // Delete person in the state
+            this.deletePerson(name, vorname);
+            person.addAdresse(addresse, isHauptAddresse);
+            this.addPerson(person)
+            this.save(); // Update the state
         }
         // TODO: Add alert
+        
     }
 
     // Saves the state to local storage
     save() {
         localStorage.setItem('personen', JSON.stringify(this.personen));
         localStorage.setItem('ortschaften', JSON.stringify(this.ortschaften));
+        
+        this.renderPersonenTable();
+        this.renderOrtschaftenTable();
     }
 
     // Loads the state from local storage
@@ -96,14 +126,78 @@ class State {
                 this.ortschaften = [];
             }
         }
-        
+        this.renderPersonenTable();
+        this.renderOrtschaftenTable();
     }
 
-    test() {
-        this.addOrtschaft(3000, "Bern");
-        this.addOrtschaft(4500, "Solothurn");
+    // Adds Ortschaften from Personen to the table that must exist
+    addExistentOrtschaften() {
+        this.personen.forEach(person => {
+            if (person.addressen != null && person.addressen.length > 0) {
+                person.addressen.forEach((addresse) => {
+                    if (!this.existsOrtschaft(addresse.plz)) {
+                        this.addOrtschaft(addresse.ortschaft.plz, addresse.ortschaft.name);
+                    }
+                });
+
+                if(person.heimatort != null && !this.existsOrtschaft(person.heimatort.plz)) {
+                    this.addOrtschaft(person.heimatort.plz, person.heimatort.name);
+                }
+            }
+        });
     }
 
+    renderPersonenTable() {
+        let personenTable = document.getElementById('personen');
+        // Remove contents
+        personenTable.innerHTML = "";
+        // Add content again
+        this.personen.forEach((person) => {
+            personenTable.innerHTML += `
+            <tr>
+            <td>${person.name}</td>
+            <td>${person.vorname}</td>
+            <td>${person.geburtsdatum}</td>
+            <td>${person.heimatort.plz} - ${person.heimatort.name}</td>
+            <td>
+            `
+            if (person.addressen != null && person.addressen.length > 0) {
+                person.addressen.forEach((addresse) => {
+                    personenTable.innerHTML += `
+                    ${addresse.strasse} ${addresse.nummer}, ${addresse.ortschaft.plz} ${addresse.ortschaft.name}
+                    `
+                });
+            }
+            personenTable.innerHTML += `
+            </td>
+            <td>
+                <a class="add" title="" data-toggle="tooltip" data-original-title="Add"><i class="material-icons"></i></a>
+                <a class="edit" title=""><i class="material-icons"></i></a>
+            </td>
+            </tr>
+            `
+        });   
+    }
+
+    renderOrtschaftenTable() {
+        let ortschaftenTable = document.getElementById('ortschaften');
+        // Remove contents
+        ortschaftenTable.innerHTML = "";
+        // Add content again
+        this.ortschaften.forEach((ortschaft) => {
+            ortschaftenTable.innerHTML += `
+            <tr>
+            <td>${ortschaft.plz}</td>
+            <td>${ortschaft.name}</td>
+            <td>
+                <a class="add" title="" data-toggle="tooltip" data-original-title="Add"><i class="material-icons"></i></a>
+                <a class="edit" title=""><i class="material-icons"></i></a>
+            </td>
+            </tr>
+            `
+        });   
+    }
+    
 }
 
 class Person {
@@ -167,4 +261,4 @@ class Ortschaft {
 }
 
 // Initialize the state and make it usable
-state = new State();
+let state = new State();
