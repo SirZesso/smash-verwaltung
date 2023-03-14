@@ -3,6 +3,13 @@ Dokumentiere deine Smashes und halte fest wo du schon alles gesmasht hast!
 
 ![](docs/smash.jpg)
 
+## Resultat 
+So sieht das Frontend mit den Funktionen aus: 
+![](docs/screenshot.png)
+
+## Dokumentation 
+![Dokumentation als PDF](docs/Dok.pdf)
+
 ## Ausgangslage
 
 ...ist ein kleiner Prototyp, den ihr mit egal welcher Technologie erstellen sollt:
