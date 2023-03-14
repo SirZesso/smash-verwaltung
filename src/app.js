@@ -69,11 +69,11 @@ class State {
 
     // Adds an person if it doesnt already exist
     addPerson(name, vorname, geburtsdatum, heimatort) {
-        this.addPerson(new Person(name, vorname, geburtsdatum, heimatort));
+        this.addPersonObj(new Person(name, vorname, geburtsdatum, heimatort));
     }
 
     // Adds an person if it doesnt already exist
-    addPerson(person) {
+    addPersonObj(person) {
         if (!this.existsPerson(person.name, person.vorname)) {
             this.personen.push(person);
             this.save();
