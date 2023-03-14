@@ -175,7 +175,7 @@ class State {
                 <a class="edit" title=""><i class="material-icons"></i></a>
             </td>
             </tr>
-            `
+            `;
         });   
     }
 
@@ -194,7 +194,7 @@ class State {
                 <a class="edit" title=""><i class="material-icons"></i></a>
             </td>
             </tr>
-            `
+            `;
         });   
     }
     
