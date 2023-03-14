@@ -22,7 +22,7 @@ Dokumentiere deine Smashes und halte fest wo du schon alles gesmasht hast!
 - [x] Erstellt kurz ein paar Handskizzen, wie diese Applikation aussehen soll
 - [ ] Ermittelt aus den Skizzen die Anzahl Transaktionen (Input, Output, Abfragen)
 - [x] Versucht den Schwierigkeitsgrad abzuschätzen
-- [] Berechnet die Function Points in einem Excel Sheet
+- [ ] Berechnet die Function Points in einem Excel Sheet
 - [x] Programmiert die Applikation mit einer Technologie nach Wahl (die Cracks sollen ran, die anderen unterstützen). Der Aufwand dafür sollte 5 Stunden nicht überschreiten. Fragt, wenn ihr Fragen habt. Schön ist nicht wichtig. Nur die Funktionalität muss stimmen. Messt den Aufwand so genau wie möglich für die einzelnen Function Points.
 - [ ] Erstellt eine Auswertung, welche FPs wie lange in der Umsetzung brauchten
 - [x] Gebt die Auswertung und die Applikation inkl. Source Code ab
